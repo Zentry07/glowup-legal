@@ -22,9 +22,9 @@
 <h2>1. Information We Collect</h2>
 <ul>
   <li><strong>Account Information:</strong> When you sign in with Apple, we receive your Apple ID, display name, and email address (if you choose to share it).</li>
-  <li><strong>Photos:</strong> Photos you upload for facial analysis are processed by our AI system. Photos are stored securely in our cloud storage and are only accessible to you.</li>
+  <li><strong>Face Photos:</strong> Photos you upload or capture for facial analysis are transmitted securely to our server, processed by our AI system in real-time, and immediately discarded after analysis. Face photos are never stored on our servers or in cloud storage. Only the resulting analysis scores and text recommendations are retained. See Section 3 for full details on face data handling.</li>
   <li><strong>Analysis Data:</strong> Scores, category breakdowns, recommendations, and progress data generated from your analyses.</li>
-  <li><strong>Chat Messages:</strong> Messages you send to the AI Coach feature are processed to generate responses. Chat history is stored for your reference.</li>
+  <li><strong>Chat Messages:</strong> Messages you send to the AI Coach feature are processed by OpenAI to generate responses. Chat messages are processed in real-time and are not permanently stored on our servers. Chat history is only kept locally on your device during your session.</li>
   <li><strong>Usage Data:</strong> App interactions such as features used, session duration, and task completions for improving the App experience.</li>
   <li><strong>Device Information:</strong> Device type, operating system version, and push notification tokens for delivering notifications.</li>
 </ul>
@@ -39,11 +39,16 @@
   <li>To improve and maintain the App</li>
 </ul>
 
-<h2>3. AI Processing &amp; Consent</h2>
-<p>GlowUp uses artificial intelligence (OpenAI) to analyze facial features and generate personalized recommendations. By using the analysis feature, you consent to your photos being processed by AI systems. AI-generated scores and recommendations are for entertainment and self-improvement purposes only and should not be considered medical, psychological, or professional advice.</p>
+<h2>3. Face Data Collection, Use, and Retention</h2>
+<p><strong>What face data we collect:</strong> When you use the facial analysis feature, the App captures or receives a single photo of your face via the device camera or photo library. The photo is converted to a base64-encoded image on your device and transmitted securely (via HTTPS/TLS) to our backend server for processing.</p>
+<p><strong>How face data is used:</strong> Your face photo is sent to OpenAI's GPT-4o API for AI-powered facial analysis. The AI evaluates facial features across categories such as symmetry, jawline definition, skin quality, grooming, and style. The analysis produces numerical scores (0-100), text-based strengths and improvement suggestions, and celebrity look-alike matches. The photo itself is used solely for this one-time analysis.</p>
+<p><strong>Third-party sharing:</strong> Your face photo is transmitted to OpenAI (https://openai.com) for AI processing. OpenAI processes the image in real-time to generate the analysis. Per OpenAI's API data usage policy, API inputs are not used to train their models and are retained for up to 30 days for abuse monitoring purposes before being deleted. No other third parties receive your face photo.</p>
+<p><strong>Data storage:</strong> Face photos are NOT stored on our servers. The photo exists in server memory only during the brief processing window (typically under 30 seconds) and is immediately discarded after the AI analysis completes. Only the resulting text-based analysis data (scores, recommendations, category breakdowns) is saved to your account in our database. The original photo remains only on your local device.</p>
+<p><strong>Data retention:</strong> Since face photos are not stored on our servers, there is no server-side retention of face images. The analysis results (scores and text) are retained as long as your account is active and are permanently deleted when you delete your account. The photo file on your local device is managed by your device's storage and is not controlled by the App.</p>
+<p><strong>AI consent:</strong> Before your first facial analysis, the App displays a consent modal explaining that your photo will be processed by AI. You must explicitly consent before proceeding. AI-generated scores and recommendations are for entertainment and self-improvement purposes only and should not be considered medical, psychological, or professional advice.</p>
 
 <h2>4. Data Storage &amp; Security</h2>
-<p>Your data is stored securely using Supabase (hosted on AWS). We implement industry-standard security measures including encryption in transit (TLS) and at rest, row-level security policies, and secure authentication. Photos are stored in private, access-controlled storage buckets.</p>
+<p>Your account data and analysis results are stored securely using Supabase (hosted on AWS). We implement industry-standard security measures including encryption in transit (TLS) and at rest, row-level security policies, and secure authentication via JSON Web Tokens (JWT). Face photos are never stored on our servers — only text-based analysis results are retained in the database.</p>
 
 <h2>5. Third-Party Services</h2>
 <ul>
@@ -58,9 +63,10 @@
 <h2>6. Data Retention &amp; Deletion</h2>
 <p>Your data is retained as long as your account is active. You can delete your account at any time from the Settings screen in the App. When you delete your account:</p>
 <ul>
-  <li>All photos (uploaded and AI-generated) are permanently deleted from storage</li>
-  <li>All analysis data, progress photos, chat history, and profile data are permanently deleted</li>
+  <li>All analysis data (scores, recommendations, category breakdowns) are permanently deleted from our database</li>
+  <li>All profile data, progress history, streaks, achievements, and task completions are permanently deleted</li>
   <li>Your authentication account is permanently removed</li>
+  <li>No face photos need to be deleted as they are never stored on our servers</li>
 </ul>
 <p>Deletion is irreversible and typically completes within minutes.</p>
 
